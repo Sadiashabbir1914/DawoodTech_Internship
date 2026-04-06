@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travel Website Landing Page – Figma Community</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/0b77386848.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <!-- ══ MOBILE DRAWER ══ -->
+    <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+    <nav class="mobile-drawer" id="mobileDrawer">
+        <div class="drawer-header">
+            <img src="images/logo.png" alt="Figma" class="drawer-logo">
+            <button class="drawer-close" onclick="closeDrawer()">&#10005;</button>
+        </div>
+        <ul class="drawer-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Figma Make</a></li>
+            <li class="has-arrow"><a href="#">Design resources <span>&#9662;</span></a></li>
+            <li class="has-arrow"><a href="#">Design templates <span>&#9662;</span></a></li>
+            <li class="has-arrow"><a href="#">Assets <span>&#9662;</span></a></li>
+            <li class="has-arrow"><a href="#">Websites <span>&#9662;</span></a></li>
+            <li class="has-arrow"><a href="#">Extensions <span>&#9662;</span></a></li>
+            <li class="has-arrow"><a href="#">Whiteboarding <span>&#9662;</span></a></li>
+            <li class="has-arrow"><a href="#">Presentations <span>&#9662;</span></a></li>
+        </ul>
+    </nav>
+
+    <!-- ══ LOGIN MODAL ══ -->
+    <div class="modal-overlay" id="loginOverlay" onclick="closeLogin(event)">
+        <div class="login-modal">
+            <button class="modal-close" onclick="closeLogin()">&#10005;</button>
+            <button class="google-btn">
+                <svg width="18" height="18" viewBox="0 0 18 18">
+                    <path fill="#4285F4"
+                        d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" />
+                    <path fill="#34A853"
+                        d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.258c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 0 0 9 18z" />
+                    <path fill="#FBBC05"
+                        d="M3.964 10.707A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.707V4.961H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.039l3.007-2.332z" />
+                    <path fill="#EA4335"
+                        d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 0 0 .957 4.961L3.964 7.293C4.672 5.163 6.656 3.58 9 3.58z" />
+                </svg>
+                Continue with Google
+            </button>
+            <div class="modal-or"><span>or</span></div>
+            <input class="modal-input" type="email" placeholder="EMAIL">
+            <input class="modal-input" type="password" placeholder="PASSWORD">
+            <button class="login-submit-btn">Log in</button>
+            <a href="#" class="modal-link">Use single sign-on</a>
+            <a href="#" class="modal-link">Reset password</a>
+            <p class="modal-footer-text">No account? <a href="#" class="modal-link-blue">Create one</a></p>
+        </div>
+    </div>
+
+    <!-- ══ HEADER ══ -->
+    <header class="site-header" id="siteHeader">
+        <!-- Search bar overlay -->
+        <div class="search-bar" id="searchBar">
+            <i class="fa-regular fa-magnifying-glass sb-icon"></i>
+            <input type="text" class="sb-input" placeholder="Search" id="searchInput" autocomplete="off">
+            <button class="sb-close" onclick="closeSearch()">&#10005;</button>
+        </div>
+
+        <!-- Normal header -->
+        <div class="header-inner" id="headerInner">
+            <div class="header-left">
+                <a href="#" class="logo-link">
+                    <img src="images/logo.png" alt="Figma" class="logo-img">
+                </a>
+                <span class="logo-sep"></span>
+                <!-- Mobile Browse -->
+                <button class="browse-btn" onclick="openDrawer()">
+                    <span>&#9776;</span> Browse
+                </button>
+                <!-- Desktop nav with mega dropdowns -->
+                <nav class="desktop-nav" id="desktopNav">
+                    <ul>
+                        <li class="nav-item" data-menu="design-resources">
+                            <button class="nav-btn">Community</button>
+                        </li>
+                        <li class="nav-item has-dropdown" data-menu="design-resources">
+                            <button class="nav-btn">Design resources <span class="nav-arrow">&#8964;</span></button>
+                            <div class="mega-menu" id="menu-design-resources">
+                                <div class="mega-left">
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>UI kits</strong>
+                                            <p>Pre-made essentials like buttons and toasts</p>
+                                        </div>
+                                        <div class="mega-card-img img-uikits"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Wireframes</strong>
+                                            <p>Explore your early ideas with lo-fi frames</p>
+                                        </div>
+                                        <div class="mega-card-img img-wireframes"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Social media</strong>
+                                            <p>Create content like a pro</p>
+                                        </div>
+                                        <div class="mega-card-img img-social"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Print</strong>
+                                            <p>Weddings, invites, and more</p>
+                                        </div>
+                                        <div class="mega-card-img img-print"></div>
+                                    </a>
+                                </div>
+                                <div class="mega-right">
+                                    <div class="mega-col">
+                                        <h4>Design templates</h4>
+                                        <a href="#">Portfolio templates</a>
+                                        <a href="#">Mobile apps</a>
+                                        <a href="#">Resume templates</a>
+                                        <a href="#">Web ads</a>
+                                    </div>
+                                    <div class="mega-col">
+                                        <h4>Assets</h4>
+                                        <a href="#">Icons</a>
+                                        <a href="#">Illustrations</a>
+                                        <a href="#">Shapes &amp; colors</a>
+                                        <a href="#">Device mockups</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item has-dropdown" data-menu="websites">
+                            <button class="nav-btn">Websites <span class="nav-arrow">&#8964;</span></button>
+                            <div class="mega-menu" id="menu-websites">
+                                <div class="mega-left websites-left">
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Landing page</strong>
+                                            <p>Make a splash, right from the start</p>
+                                        </div>
+                                        <div class="mega-card-img img-landing"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Portfolio</strong>
+                                            <p>Showcase your best work</p>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Business</strong>
+                                            <p>Promote your brand online</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-right">
+                                    <div class="mega-col">
+                                        <a href="#" class="mega-more-link">More websites</a>
+                                        <a href="#">Blog</a>
+                                        <a href="#">Wedding</a>
+                                        <a href="#">Photography</a>
+                                        <a href="#">Interior design</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item" data-menu="none">
+                            <button class="nav-btn">Figma Make</button>
+                        </li>
+                        <li class="nav-item has-dropdown" data-menu="extensions">
+                            <button class="nav-btn">Extensions <span class="nav-arrow">&#8964;</span></button>
+                            <div class="mega-menu" id="menu-extensions">
+                                <div class="mega-left">
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Editing &amp; effects</strong>
+                                            <p>Transform your colors, images, text, and more</p>
+                                        </div>
+                                        <div class="mega-card-img img-editing"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>File organization</strong>
+                                            <p>Get "type A" files and layers</p>
+                                        </div>
+                                        <div class="mega-card-img img-fileorg"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Development</strong>
+                                            <p>Speed up your handoff, process, and implementation</p>
+                                        </div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Widgets</strong>
+                                            <p>Useful tools that run right in your files</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-right">
+                                    <div class="mega-col">
+                                        <a href="#" class="mega-more-link">More plugins</a>
+                                        <a href="#">Import &amp; export</a>
+                                        <a href="#">Accessibility tools</a>
+                                        <a href="#">Prototyping &amp; animation</a>
+                                        <a href="#">Design tools</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item has-dropdown" data-menu="whiteboarding">
+                            <button class="nav-btn">Whiteboarding <span class="nav-arrow">&#8964;</span></button>
+                            <div class="mega-menu" id="menu-whiteboarding">
+                                <div class="mega-left">
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Brainstorming</strong>
+                                            <p>Ideate, then pick your favorites</p>
+                                        </div>
+                                        <div class="mega-card-img img-brainstorm"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Diagramming</strong>
+                                            <p>Map out complex flows</p>
+                                        </div>
+                                        <div class="mega-card-img img-diagram"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Fun &amp; games</strong>
+                                            <p>Take a break (or break the ice)</p>
+                                        </div>
+                                        <div class="mega-card-img img-fun"></div>
+                                    </a>
+                                    <a href="#" class="mega-card">
+                                        <div class="mega-card-text">
+                                            <strong>Team meetings</strong>
+                                            <p>Templates for everything from kickoffs to retros</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="mega-right">
+                                    <div class="mega-col">
+                                        <a href="#" class="mega-more-link">More whiteboarding</a>
+                                        <a href="#">Strategic planning</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item has-dropdown" data-menu="presentations">
+                            <button class="nav-btn">Presentations <span class="nav-arrow">&#8964;</span></button>
+                            <div class="mega-menu wide-menu" id="menu-presentations">
+                                <div class="mega-left presentations-left">
+                                    <a href="#" class="mega-card pres-card">
+                                        <div class="mega-card-text">
+                                            <strong>Startup pitch</strong>
+                                            <p>Share the story behind your big idea</p>
+                                        </div>
+                                        <div class="mega-card-img img-startup"></div>
+                                    </a>
+                                    <a href="#" class="mega-card pres-card">
+                                        <div class="mega-card-text">
+                                            <strong>Product roadmap</strong>
+                                            <p>Turn customers into believers by sharing your product vision</p>
+                                        </div>
+                                        <div class="mega-card-img img-roadmap"></div>
+                                    </a>
+                                    <a href="#" class="mega-card pres-card">
+                                        <div class="mega-card-text">
+                                            <strong>More presentations</strong>
+                                            <p>Mix and match with Figma Slides templates</p>
+                                        </div>
+                                        <div class="mega-card-img img-morepres"></div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="header-right">
+                <button class="search-icon-btn" onclick="openSearch()" aria-label="Search">
+                    <img src="images/search-icon.png" alt="search-icon">
+                </button>
+                <button class="login-btn" onclick="openLogin()">Log in</button>
+                <button class="signup-btn" onclick="openLogin()">Sign up</button>
+            </div>
+        </div>
+    </header>
+    <!-- Mega menu backdrop -->
+    <div class="menu-backdrop" id="menuBackdrop"></div>
+
+    <!-- ══ BREADCRUMB ══ -->
+
+    <article class="web-temp">
+        <a href="#"><i class="fa-regular fa-house"></i></a>
+        <img src="images/left-arrow.png" alt="left-arrow">
+        <a href="#">
+            <p>Website templates</p>
+        </a>
+    </article>
+
+    <article class="hero">
+        <div>
+            <div class="logo">
+                <img src="images/hero-logo.jpg" alt="hero-logo">
+                <p>Designer</p>
+            </div>
+
+            <div class="subscribers">
+                <h2>Travel Website Landing Page</h2>
+                <p>Design file | <i class="fa-regular fa-heart"></i> 1.2k | <i class="fa-regular fa-user"></i> 73.7k
+                    users </p>
+                <div><button>Open in Figma</button></div>
+            </div>
+        </div>
+
+        <img src="images/hero-pic" alt="hero preview">
+    </article>
+
+    <div class="abt">
+        <p>About</p>
+        <p>Comments</p>
+    </div>
+
+
+    <!-- ══ MAIN CONTENT ══ -->
+    <section class="abt-cmnts">
+        <div class="about">
+            <p>Get this landing for Travel Website for free.
+                Personal or commercial usage allowed without any attribution.</p>
+            <div>
+                <h3>Tags</h3>
+                <div class="tag">
+                    <p>Landing Page</p>
+                    <p>Travel</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>Preview</h3>
+
+        <div class="preview">
+            <img src="images/hero-pic" alt="preview" />
+            <hr>
+            <div class="hashtags">
+                <p>#homepage &nbsp; #landing</p>
+                <p>#landing page &nbsp; #travel &nbsp; #web</p>
+                <p>#web design &nbsp; #website</p>
+                <hr />
+
+                <div class="share-section">
+                    <h4>Share</h4>
+                    <div class="share-buttons">
+                        <button>🔗</button>
+                        <button><i class="fa-brands fa-x-twitter"></i></button>
+                        <button><i class="fa-brands fa-square-facebook"></i></button>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="sb-section figma-badge">
+                    <img src="images/figmaa.png" alt="Figma"><span>For Figma</span>
+                </div>
+                <hr>
+
+                <div class="info">
+                    <p>Last updated 2 years ago</p>
+                    <p>Support: <a href="#">shakir260@gmail.com</a></p>
+                    <p>Licensed under <a href="#">CC BY 4.0</a></p>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- COMMENTS -->
+    <div id="panelComments" class="tab-panel">
+        <div class="comment-form">
+            <div class="avatar-a">A</div>
+            <input class="comment-input" type="text" placeholder="Add a comment">
+            <button class="btn-post">Post</button>
+        </div>
+        <p class="comments-count">4 comments</p>
+        <div class="comment-list">
+            <div class="comment-item">
+                <div class="comment-meta">
+                    <div class="c-avatar" style="overflow:hidden;"><img src="https://i.pravatar.cc/36?img=12" alt=""
+                            onerror="this.style.display='none'"></div>
+                    <div class="c-info"><span class="c-name">urphasin</span><span class="c-handle">@urphasin</span><span
+                            class="c-dot">·</span><span class="c-time">6
+                            months ago</span></div>
+                </div>
+                <div class="c-body"><a href="#" class="mention">@rakibulrifat44</a> ha nice try.</div>
+            </div>
+            <hr class="divider">
+            <div class="comment-item">
+                <div class="comment-meta">
+                    <div class="c-avatar bg-red">M</div>
+                    <div class="c-info"><span class="c-name">mandar teli</span><span
+                            class="c-handle">@mandarteli</span><span class="c-dot">·</span><span class="c-time">1 year
+                            ago</span></div>
+                </div>
+                <div class="c-body">Hi How much you charge to create progressive web design which can be
+                    converted to mobil app later</div>
+            </div>
+            <hr class="divider">
+            <div class="comment-item">
+                <div class="comment-meta">
+                    <div class="c-avatar" style="overflow:hidden;"><img src="https://i.pravatar.cc/36?img=33" alt=""
+                            onerror="this.parentNode.textContent='MR';this.parentNode.style.background='#4a90d9'">
+                    </div>
+                    <div class="c-info"><span class="c-name">Mukul Rahman</span><span
+                            class="c-handle">@mukulrahman</span><span class="c-dot">·</span><span class="c-time">1 year
+                            ago</span></div>
+                </div>
+                <div class="c-body">Very nice design. I want to use it in my portfolio if you allow. Regards.
+                </div>
+            </div>
+            <hr class="divider">
+            <div class="comment-item">
+                <div class="comment-meta">
+                    <div class="c-avatar" style="overflow:hidden;"><img src="https://i.pravatar.cc/36?img=52" alt=""
+                            onerror="this.parentNode.textContent='LT';this.parentNode.style.background='#2c3e50'">
+                    </div>
+                    <div class="c-info"><span class="c-name">Long Trần Hoàng</span><span
+                            class="c-handle">@gnol</span><span class="c-dot">·</span><span class="c-time">5
+                            years ago</span></div>
+                </div>
+                <div class="c-body">it's so cute. what font you use in Page?</div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- ══ FOOTER ══ -->
+    <footer class="site-footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3>Explore</h3>
+                <ul>
+                    <li><a href="#">Social media templates</a></li>
+                    <li><a href="#">Web ad templates</a></li>
+                    <li><a href="#">Instagram templates</a></li>
+                    <li><a href="#">LinkedIn templates</a></li>
+                    <li><a href="#">Facebook templates</a></li>
+                    <li><a href="#">YouTube templates</a></li>
+                    <li><a href="#">Card templates</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Popular searches</h3>
+                <ul>
+                    <li><a href="#">Portfolio templates</a></li>
+                    <li><a href="#">Resume templates</a></li>
+                    <li><a href="#">Website templates</a></li>
+                    <li><a href="#">Mobile app templates</a></li>
+                    <li><a href="#">Presentations</a></li>
+                    <li><a href="#">Device mockups</a></li>
+                    <li><a href="#">Team meetings</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Recommended</h3>
+                <ul>
+                    <li><a href="#">Calendar templates</a></li>
+                    <li><a href="#">Data templates</a></li>
+                    <li><a href="#">Accessibility tools</a></li>
+                    <li><a href="#">Fonts &amp; typography</a></li>
+                    <li><a href="#">Design inspiration</a></li>
+                    <li><a href="#">Development plugins</a></li>
+                    <li><a href="#">Strategic planning</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Top categories</h3>
+                <ul>
+                    <li><a href="#">Design tools</a></li>
+                    <li><a href="#">Libraries</a></li>
+                    <li><a href="#">Education</a></li>
+                    <li><a href="#">Whiteboarding</a></li>
+                    <li><a href="#">Visual assets</a></li>
+                    <li><a href="#">Illustrations</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span class="footer-wordmark">Figma</span>
+            <div class="footer-legal">
+                <span>© 2026 Figma, Inc.</span>
+                <span class="sep">•</span><a href="#">Site map</a>
+                <span class="sep">•</span><a href="#">Community guidelines</a>
+                <span class="sep">•</span><a href="#">Terms of service</a>
+            </div>
+        </div>
+    </footer>
+
+    <button class="help-fab">?</button>
+
+    <script>
+        /* ── DRAWER ── */
+        function openDrawer() { document.getElementById('mobileDrawer').classList.add('open'); document.getElementById('drawerOverlay').classList.add('visible'); document.body.classList.add('no-scroll'); }
+        function closeDrawer() { document.getElementById('mobileDrawer').classList.remove('open'); document.getElementById('drawerOverlay').classList.remove('visible'); document.body.classList.remove('no-scroll'); }
+
+        /* ── LOGIN ── */
+        function openLogin() { document.getElementById('loginOverlay').classList.add('visible'); document.body.classList.add('no-scroll'); }
+        function closeLogin(e) { if (!e || e.target === document.getElementById('loginOverlay')) { document.getElementById('loginOverlay').classList.remove('visible'); document.body.classList.remove('no-scroll'); } }
+
+        /* ── SEARCH ── */
+        function openSearch() { document.getElementById('searchBar').classList.add('visible'); document.getElementById('headerInner').classList.add('hidden'); document.getElementById('searchInput').focus(); }
+        function closeSearch() { document.getElementById('searchBar').classList.remove('visible'); document.getElementById('headerInner').classList.remove('hidden'); }
+
+        /* ── MEGA MENUS ── */
+        let activeMenu = null;
+        const backdrop = document.getElementById('menuBackdrop');
+
+        document.querySelectorAll('.nav-item.has-dropdown').forEach(item => {
+            const btn = item.querySelector('.nav-btn');
+            const menu = item.querySelector('.mega-menu');
+            if (!menu) return;
+
+            item.addEventListener('mouseenter', () => {
+                if (activeMenu && activeMenu !== menu) {
+                    activeMenu.classList.remove('visible');
+                    activeMenu.closest('.nav-item').classList.remove('active');
+                }
+                menu.classList.add('visible');
+                item.classList.add('active');
+                backdrop.classList.add('visible');
+                activeMenu = menu;
+            });
+
+            item.addEventListener('mouseleave', (e) => {
+                if (!item.contains(e.relatedTarget) && !menu.contains(e.relatedTarget)) {
+                    menu.classList.remove('visible');
+                    item.classList.remove('active');
+                    backdrop.classList.remove('visible');
+                    activeMenu = null;
+                }
+            });
+
+            menu.addEventListener('mouseleave', (e) => {
+                if (!item.contains(e.relatedTarget)) {
+                    menu.classList.remove('visible');
+                    item.classList.remove('active');
+                    backdrop.classList.remove('visible');
+                    activeMenu = null;
+                }
+            });
+        });
+
+        backdrop.addEventListener('click', () => {
+            document.querySelectorAll('.mega-menu.visible').forEach(m => m.classList.remove('visible'));
+            document.querySelectorAll('.nav-item.active').forEach(i => i.classList.remove('active'));
+            backdrop.classList.remove('visible');
+            activeMenu = null;
+        });
+
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { backdrop.click(); closeSearch(); }
+        });
+
+        /* ── TABS ── */
+        function switchTab(name) {
+            ['about', 'comments'].forEach(t => {
+                const cap = t[0].toUpperCase() + t.slice(1);
+                document.getElementById('panel' + cap).classList.add('hidden');
+                document.getElementById('tab' + cap).classList.remove('active');
+            });
+            const cap = name[0].toUpperCase() + name.slice(1);
+            document.getElementById('panel' + cap).classList.remove('hidden');
+            document.getElementById('tab' + cap).classList.add('active');
+        }
+
+        /* ── CAROUSEL ── */
+        function moveCarousel(dir) { const dots = document.querySelectorAll('.dot'); let cur = [...dots].findIndex(d => d.classList.contains('active')); dots[cur].classList.remove('active'); dots[(cur + dir + dots.length) % dots.length].classList.add('active'); }
+        function goToSlide(i) { document.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i)); }
+    </script>
+</body>
+
+</html>
