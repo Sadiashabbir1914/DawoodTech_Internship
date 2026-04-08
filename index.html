@@ -569,21 +569,7 @@
             if (e.key === 'Escape') { backdrop.click(); closeSearch(); }
         });
 
-        /* ── TABS ── */
-        function switchTab(name) {
-            ['about', 'comments'].forEach(t => {
-                const cap = t[0].toUpperCase() + t.slice(1);
-                document.getElementById('panel' + cap).classList.add('hidden');
-                document.getElementById('tab' + cap).classList.remove('active');
-            });
-            const cap = name[0].toUpperCase() + name.slice(1);
-            document.getElementById('panel' + cap).classList.remove('hidden');
-            document.getElementById('tab' + cap).classList.add('active');
-        }
 
-        /* ── CAROUSEL ── */
-        function moveCarousel(dir) { const dots = document.querySelectorAll('.dot'); let cur = [...dots].findIndex(d => d.classList.contains('active')); dots[cur].classList.remove('active'); dots[(cur + dir + dots.length) % dots.length].classList.add('active'); }
-        function goToSlide(i) { document.querySelectorAll('.dot').forEach((d, idx) => d.classList.toggle('active', idx === i)); }
     </script>
 </body>
 
