@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Construction – Blog</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --navy: #0d1f4c;
+            --navy-dk: #08122c;
+            --footer: #0a0f1e;
+            --orange: #e0511a;
+            --white: #ffffff;
+            --muted: #7a8aaa;
+            --light-bg: #f5f6fa;
+        }
+
+        body {
+            font-family: 'Barlow', sans-serif;
+            color: var(--navy);
+            background: var(--white);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* ═══════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════ */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--navy-dk);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5vw;
+            height: 72px;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--white);
+        }
+
+        .nav-logo svg {
+            flex-shrink: 0;
+        }
+
+        .nav-logo-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            font-size: 1.55rem;
+            letter-spacing: 0.03em;
+            color: var(--white);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0;
+            list-style: none;
+        }
+
+        .nav-links>li {
+            position: relative;
+        }
+
+        .nav-links>li>a {
+            display: block;
+            padding: 0 18px;
+            line-height: 72px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.82);
+            transition: color .2s;
+            white-space: nowrap;
+        }
+
+        .nav-links>li>a:hover,
+        .nav-links>li>a.active {
+            color: var(--orange);
+        }
+
+        /* Dropdown */
+        .nav-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 170px;
+            background: var(--white);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, .14);
+            border-top: 3px solid var(--orange);
+            display: none;
+            flex-direction: column;
+            z-index: 200;
+        }
+
+        .nav-dropdown a {
+            display: block;
+            padding: 13px 20px;
+            font-size: 0.88rem;
+            color: var(--navy);
+            transition: color .15s;
+        }
+
+        .nav-dropdown a:hover {
+            color: var(--orange);
+        }
+
+        .nav-links>li:hover .nav-dropdown {
+            display: flex;
+        }
+
+        .nav-cta {
+            background: var(--orange);
+            color: var(--white) !important;
+            padding: 0 26px !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.06em;
+            font-size: 0.78rem !important;
+            text-transform: uppercase;
+        }
+
+        .nav-cta:hover {
+            background: #c2420f;
+            color: var(--white) !important;
+        }
+
+        /* ═══════════════════════════════════════
+       HERO BANNER
+    ═══════════════════════════════════════ */
+        .hero {
+            position: relative;
+            height: 420px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(to right, rgba(10, 18, 50, .75) 40%, rgba(10, 18, 50, .45) 100%),
+                url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80') center/cover no-repeat;
+        }
+
+        .hero-content {
+            position: relative;
+            padding: 0 6vw;
+        }
+
+        .hero-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 900;
+            font-size: clamp(3.5rem, 8vw, 6rem);
+            letter-spacing: 0.04em;
+            color: rgba(255, 255, 255, 0.18);
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 16px;
+        }
+
+        .hero-breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .hero-breadcrumb::before {
+            content: '';
+            display: block;
+            width: 36px;
+            height: 2px;
+            background: var(--orange);
+        }
+
+        .hero-breadcrumb a {
+            color: var(--orange);
+        }
+
+        .hero-breadcrumb span {
+            color: var(--orange);
+        }
+
+        /* ═══════════════════════════════════════
+       MAIN LAYOUT
+    ═══════════════════════════════════════ */
+        .page-wrap {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 70px 5vw;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 50px;
+            align-items: start;
+        }
+
+        /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+        .footer-stripe {
+            height: 54px;
+            background: repeating-linear-gradient(-45deg,
+                    #1a1f30 0px,
+                    #1a1f30 8px,
+                    #141826 8px,
+                    #141826 16px);
+        }
+
+        .footer {
+            background: var(--footer);
+            padding: 64px 5vw 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr 1.4fr 1.4fr;
+            gap: 40px;
+            padding-bottom: 48px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+
+        .footer-logo-text {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 800;
+            font-size: 1.45rem;
+            color: var(--white);
+        }
+
+        .footer-desc {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+        .footer-col-title {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 1.05rem;
+            letter-spacing: 0.06em;
+            color: var(--muted);
+            text-transform: uppercase;
+            margin-bottom: 22px;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            font-size: 0.88rem;
+            color: var(--muted);
+            transition: color .2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--orange);
+        }
+
+        .footer-contact-item {
+            font-size: 0.88rem;
+            color: var(--muted);
+            margin-bottom: 10px;
+            line-height: 1.55;
+        }
+
+        .footer-contact-item strong {
+            color: var(--orange);
+        }
+
+        /* Footer newsletter */
+        .footer-newsletter {
+            display: flex;
+            gap: 0;
+            margin-bottom: 28px;
+        }
+
+        .footer-email-input {
+            flex: 1;
+            padding: 11px 14px;
+            background: #1a2240;
+            border: 1px solid #2a3460;
+            border-right: none;
+            color: var(--white);
+            font-family: 'Barlow', sans-serif;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .footer-email-input::placeholder {
+            color: var(--muted);
+        }
+
+        .footer-signup-btn {
+            padding: 11px 18px;
+            background: transparent;
+            border: 1px solid #2a3460;
+            color: var(--white);
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            font-size: 0.82rem;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background .2s;
+        }
+
+        .footer-signup-btn:hover {
+            background: var(--orange);
+            border-color: var(--orange);
+        }
+
+        /* World map SVG placeholder */
+        .world-map {
+            width: 100%;
+            height: 110px;
+            background:
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3Cellipse cx='200' cy='200' rx='160' ry='120' fill='%23162040'/%3E%3Cellipse cx='440' cy='180' rx='200' ry='130' fill='%23162040'/%3E%3Cellipse cx='680' cy='220' rx='100' ry='90' fill='%23162040'/%3E%3Ccircle cx='310' cy='150' r='4' fill='%23e0511a'/%3E%3Ccircle cx='500' cy='170' r='4' fill='%23e0511a'/%3E%3Ccircle cx='620' cy='230' r='4' fill='%23e0511a'/%3E%3Ccircle cx='180' cy='220' r='4' fill='%23e0511a'/%3E%3C/svg%3E") center/contain no-repeat;
+            opacity: 0.7;
+        }
+
+        /* Footer bottom bar */
+        .footer-bar {
+            border-top: 1px solid #1a2240;
+            padding: 22px 5vw;
+            text-align: center;
+            font-size: 0.82rem;
+            color: var(--muted);
+        }
+
+        .footer-bar a {
+            color: var(--orange);
+        }
+
+        /* ─── SCROLL TO TOP ─── */
+        .scroll-top {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            width: 48px;
+            height: 48px;
+            background: var(--orange);
+            color: var(--white);
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            transition: background .2s;
+        }
+
+        .scroll-top:hover {
+            background: #c2420f;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 1024px) {
+            .page-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 680px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ═══ NAVBAR ═══ -->
+    <nav class="nav">
+        <!-- Logo -->
+        <a href="#" class="nav-logo">
+            <svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="2" y="4" width="10" height="26" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none" />
+                <rect x="14" y="10" width="8" height="20" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none" />
+                <rect x="24" y="16" width="8" height="14" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none" />
+                <rect x="4" y="8" width="2" height="2" fill="#e0511a" />
+                <rect x="8" y="8" width="2" height="2" fill="#e0511a" />
+                <rect x="4" y="13" width="2" height="2" fill="#e0511a" />
+                <rect x="8" y="13" width="2" height="2" fill="#e0511a" />
+                <rect x="4" y="18" width="2" height="2" fill="#e0511a" />
+                <rect x="8" y="18" width="2" height="2" fill="#e0511a" />
+                <rect x="16" y="14" width="2" height="2" fill="#e0511a" />
+                <rect x="20" y="14" width="2" height="2" fill="#e0511a" />
+            </svg>
+            <span class="nav-logo-text">Construction</span>
+        </a>
+
+        <!-- Links -->
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li>
+                <a href="services.html">Services</a>
+            </li>
+            <li>
+                <a href="#" class="active">Blog</a>
+                <div class="nav-dropdown">
+                    <a href="blog.html">Blog</a>
+                    <a href="blog_details.html">Blog Details</a>
+                </div>
+            </li>
+            <li><a href="elements.html">Pages</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#" class="nav-cta">Contact Now</a></li>
+        </ul>
+    </nav>
+
+    <!-- ═══ HERO BANNER ═══ -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <h1 class="hero-title">Blog</h1>
+            <div class="hero-breadcrumb">
+                <a href="#">Home</a>
+                <span>/</span>
+                <span>Blog</span>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <article class="projects">
+            <h1 class="project">OUR PROJECTS</h1>
+            <ul class="project-links">
+                <li><a href="">Show all</a></li>
+                <li><a href="">Interior</a></li>
+                <li><a href="">Recent</a></li>
+                <li><a href="">Big building</a></li>
+                <li><a href="">Park</a></li>
+            </ul>
+        </article>
+
+        <article class="project-container">
+
+            <div class="card">
+                <div class="card__image-wrapper">
+                    <img src="images/project1.webp" alt="Floride Chemicals Factory building" />
+                    <button class="card__add-btn" aria-label="Add">+</button>
+                </div>
+
+                <div class="card__info">
+                    <h2 class="card__title">Floride Chemicals</h2>
+                    <p class="card__subtitle">Factory</p>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card__image-wrapper">
+                    <img src="images/project2.webp" alt="Floride Chemicals Factory building" />
+                    <button class="card__add-btn" aria-label="Add">+</button>
+                </div>
+
+                <div class="card__info">
+                    <h2 class="card__title">Floride Chemicals</h2>
+                    <p class="card__subtitle">Factory</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__image-wrapper">
+                    <img src="images/project3.webp" alt="Floride Chemicals Factory building" />
+                    <button class="card__add-btn" aria-label="Add">+</button>
+                </div>
+
+                <div class="card__info">
+                    <h2 class="card__title">Floride Chemicals</h2>
+                    <p class="card__subtitle">Factory</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__image-wrapper">
+                    <img src="images/project4.webp" alt="Floride Chemicals Factory building" />
+                    <button class="card__add-btn" aria-label="Add">+</button>
+                </div>
+
+                <div class="card__info">
+                    <h2 class="card__title">Floride Chemicals</h2>
+                    <p class="card__subtitle">Factory</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__image-wrapper">
+                    <img src="images/project5.webp" alt="Floride Chemicals Factory building" />
+                    <button class="card__add-btn" aria-label="Add">+</button>
+                </div>
+
+                <div class="card__info">
+                    <h2 class="card__title">Floride Chemicals</h2>
+                    <p class="card__subtitle">Factory</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card__image-wrapper">
+                    <img src="images/project6.webp" alt="Floride Chemicals Factory building" />
+                    <button class="card__add-btn" aria-label="Add">+</button>
+                </div>
+
+                <div class="card__info">
+                    <h2 class="card__title">Floride Chemicals</h2>
+                    <p class="card__subtitle">Factory</p>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <div class="footer-stripe"></div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+
+            <!-- Col 1: Logo + desc -->
+            <div>
+                <div class="footer-logo">
+                    <img src="images/logo.webp" alt="">
+                </div>
+                <p class="footer-desc">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore.
+                </p>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div>
+                <p class="footer-col-title">Quick Links</p>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Contact -->
+            <div>
+                <p class="footer-col-title">Contact</p>
+                <p class="footer-contact-item">198 West 21th Street, Suite 721 New York, NY 10010</p>
+                <p class="footer-contact-item"><strong>Phone:</strong> +95 (0) 123 456 789</p>
+                <p class="footer-contact-item"><strong>Cell:</strong> +95 (0) 123 456 789</p>
+            </div>
+
+            <!-- Col 4: Newsletter + Map -->
+            <div>
+                <div class="footer-newsletter">
+                    <input class="footer-email-input" type="email" placeholder="Email Address" />
+                    <button class="footer-signup-btn">Sign Up</button>
+                </div>
+                <div class="world-map">
+                    <img src="images/map-footer.webp" alt="">
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <div class="footer-bar">
+        Copyright &copy;2026 All rights reserved | This template is made with ❤ by
+        <a href="#" target="_blank">Colorlib</a>
+    </div>
+
+</body>
+
+</html>

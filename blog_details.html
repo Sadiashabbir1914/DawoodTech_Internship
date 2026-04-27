@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Construction – Single Blog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0d1f4c;
+      --navy-dk: #08122c;
+      --footer:  #0a0f1e;
+      --orange:  #e0511a;
+      --white:   #ffffff;
+      --muted:   #7a8aaa;
+      --light:   #f5f6fa;
+      --border:  #e4e9f0;
+    }
+
+    body { font-family: 'Barlow', sans-serif; color: var(--navy); background: var(--white); }
+    a    { text-decoration: none; color: inherit; }
+
+    /* ═══════════════════════════════════════
+       TOP BAR
+    ═══════════════════════════════════════ */
+    .topbar {
+      background: #101830;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 40px;
+      font-size: 0.78rem;
+      color: var(--muted);
+      gap: 24px;
+    }
+
+    .topbar-left {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .topbar-left span {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .topbar-socials {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .topbar-socials a {
+      color: var(--muted);
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+    .topbar-socials a:hover { color: var(--orange); }
+
+    /* ═══════════════════════════════════════
+       NAVBAR
+    ═══════════════════════════════════════ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--navy-dk);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 72px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.55rem;
+      color: var(--white);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      list-style: none;
+    }
+
+    .nav-links > li > a {
+      display: block;
+      padding: 0 16px;
+      line-height: 72px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.82);
+      transition: color .2s;
+      white-space: nowrap;
+    }
+    .nav-links > li > a:hover,
+    .nav-links > li > a.active { color: var(--orange); }
+
+    .nav-cta {
+      background: var(--orange);
+      color: var(--white) !important;
+      padding: 0 24px !important;
+      font-weight: 700 !important;
+      letter-spacing: .06em;
+      font-size: 0.78rem !important;
+      text-transform: uppercase;
+    }
+    .nav-cta:hover { background: #c2420f; }
+
+    /* ═══════════════════════════════════════
+       HERO BANNER
+    ═══════════════════════════════════════ */
+    .hero {
+      position: relative;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(10,18,50,.78) 45%, rgba(10,18,50,.45) 100%),
+        url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1600&q=80') center/cover no-repeat;
+    }
+
+    .hero-content { position: relative; padding: 0 6vw; }
+
+    .hero-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      letter-spacing: .04em;
+      color: rgba(255,255,255,.18);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      line-height: 1;
+    }
+
+    .hero-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--orange);
+    }
+    .hero-breadcrumb::before {
+      content: '';
+      display: block;
+      width: 36px;
+      height: 2px;
+      background: var(--orange);
+    }
+
+    /* ═══════════════════════════════════════
+       PAGE WRAP – main + sidebar
+    ═══════════════════════════════════════ */
+    .page-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 70px 5vw;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 50px;
+      align-items: start;
+    }
+
+    /* ═══════════════════════════════════════
+       ARTICLE
+    ═══════════════════════════════════════ */
+    .post-image-wrap {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .post-img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .post-date {
+      position: absolute;
+      bottom: 0;
+      left: 28px;
+      background: var(--orange);
+      color: var(--white);
+      padding: 10px 18px 12px;
+      text-align: center;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      min-width: 68px;
+    }
+    .post-date-day   { display: block; font-size: 2.1rem; line-height: 1; }
+    .post-date-month { display: block; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; margin-top: 2px; }
+
+    .post-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.9rem;
+      color: var(--navy);
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: .83rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .post-meta-item { display: flex; align-items: center; gap: 6px; }
+    .meta-divider   { color: var(--border); }
+
+    .post-body {
+      font-size: .95rem;
+      line-height: 1.85;
+      color: var(--orange);
+      margin-bottom: 24px;
+    }
+
+    /* Blockquote */
+    .post-blockquote {
+      background: var(--light);
+      border-left: 3px solid var(--navy);
+      padding: 28px 36px;
+      margin: 32px 0;
+    }
+
+    .post-blockquote p {
+      font-style: italic;
+      font-size: .95rem;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    /* Likes + Share bar */
+    .post-share {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin: 32px 0;
+    }
+
+    .post-likes {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .88rem;
+      color: var(--orange);
+      cursor: pointer;
+    }
+
+    .like-heart { font-size: 1.1rem; }
+
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .social-icons a {
+      color: var(--muted);
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      transition: color .2s;
+    }
+    .social-icons a:hover { color: var(--orange); }
+
+    /* Prev / Next Nav */
+    .post-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .post-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0;
+    }
+
+    .post-nav-item.next { flex-direction: row-reverse; text-align: right; }
+
+    .post-nav-thumb {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .post-nav-label {
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+      margin-bottom: 4px;
+      font-weight: 600;
+    }
+
+    .post-nav-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--navy);
+      transition: color .2s;
+    }
+    .post-nav-item:hover .post-nav-title { color: var(--orange); }
+
+    /* Author Bio */
+    .author-bio {
+      background: var(--light);
+      padding: 30px;
+      display: flex;
+      gap: 24px;
+      margin-bottom: 52px;
+    }
+
+    .author-avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .author-name {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .author-desc {
+      font-size: .88rem;
+      line-height: 1.7;
+      color: var(--orange);
+    }
+
+    /* ─── COMMENTS ─── */
+    .comments-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin-bottom: 32px;
+    }
+
+    .comment {
+      display: flex;
+      gap: 18px;
+      margin-bottom: 36px;
+    }
+
+    .comment-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .comment-body { flex: 1; }
+
+    .comment-text {
+      font-size: .9rem;
+      line-height: 1.7;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .comment-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: .82rem;
+    }
+
+    .comment-author { font-weight: 700; color: var(--navy); }
+    .comment-date   { color: var(--muted); margin-left: 10px; }
+
+    .comment-reply {
+      font-size: .75rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--navy);
+      transition: color .2s;
+    }
+    .comment-reply:hover { color: var(--orange); }
+
+    /* ─── LEAVE A REPLY ─── */
+    .reply-heading {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.4rem;
+      color: var(--navy);
+      margin: 44px 0 24px;
+      padding-top: 44px;
+      border-top: 1px solid var(--border);
+    }
+
+    .reply-form { display: flex; flex-direction: column; gap: 14px; }
+
+    .reply-form textarea,
+    .reply-form input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      font-family: 'Barlow', sans-serif;
+      font-size: .88rem;
+      color: var(--navy);
+      outline: none;
+      resize: vertical;
+      transition: border-color .2s;
+    }
+    .reply-form textarea:focus,
+    .reply-form input:focus { border-color: var(--orange); }
+
+    .reply-form textarea { height: 180px; resize: vertical; }
+
+    .reply-form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .reply-send-btn {
+      display: inline-block;
+      padding: 14px 40px;
+      border: 1.5px solid var(--orange);
+      background: transparent;
+      color: var(--orange);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .88rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .2s;
+      align-self: flex-start;
+    }
+    .reply-send-btn:hover { background: var(--orange); color: var(--white); }
+
+    /* ═══════════════════════════════════════
+       SIDEBAR
+    ═══════════════════════════════════════ */
+    .sidebar { display: flex; flex-direction: column; gap: 44px; }
+
+    .widget-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      letter-spacing: .04em;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+
+    /* Search */
+    .search-wrap {
+      display: flex;
+      margin-bottom: 10px;
+    }
+
+    .search-input {
+      flex: 1;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      border-right: none;
+      font-family: 'Barlow', sans-serif;
+      font-size: .88rem;
+      color: var(--navy);
+      outline: none;
+    }
+    .search-input::placeholder { color: var(--muted); }
+
+    .search-btn {
+      width: 46px;
+      background: var(--orange);
+      border: none;
+      color: var(--white);
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .search-full-btn {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--orange);
+      background: transparent;
+      color: var(--orange);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .88rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .search-full-btn:hover { background: var(--orange); color: var(--white); }
+
+    /* Category list */
+    .cat-list { list-style: none; }
+    .cat-list li a {
+      display: block;
+      padding: 11px 0;
+      font-size: .9rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+      transition: color .2s;
+    }
+    .cat-list li a:hover { color: var(--orange); }
+
+    /* Recent posts */
+    .recent-post {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .recent-post:last-child { border-bottom: none; }
+
+    .recent-post-thumb {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .recent-post-title {
+      font-size: .88rem;
+      font-weight: 600;
+      color: var(--navy);
+      line-height: 1.35;
+      margin-bottom: 4px;
+    }
+    .recent-post-title:hover { color: var(--orange); }
+    .recent-post-date { font-size: .78rem; color: var(--muted); }
+
+    /* Tag clouds */
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .tag {
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      font-size: .8rem;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .tag:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* Instagram grid */
+    .insta-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .insta-thumb {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      display: block;
+      transition: opacity .2s;
+    }
+    .insta-thumb:hover { opacity: .8; }
+
+    /* Newsletter */
+    .subscribe-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--border);
+      font-family: 'Barlow', sans-serif;
+      font-size: .88rem;
+      color: var(--navy);
+      outline: none;
+      margin-bottom: 10px;
+    }
+    .subscribe-input::placeholder { color: var(--muted); }
+    .subscribe-input:focus { border-color: var(--orange); }
+
+    .subscribe-btn {
+      width: 100%;
+      padding: 12px;
+      border: 1.5px solid var(--orange);
+      background: transparent;
+      color: var(--orange);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .88rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .subscribe-btn:hover { background: var(--orange); color: var(--white); }
+
+    /* ═══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    .footer-stripe {
+      height: 54px;
+      background: repeating-linear-gradient(
+        -45deg,
+        #1a1f30 0px, #1a1f30 8px,
+        #141826 8px, #141826 16px
+      );
+    }
+
+    .footer {
+      background: var(--footer);
+      padding: 64px 5vw 0;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.6fr 1fr 1.4fr 1.4fr;
+      gap: 40px;
+      padding-bottom: 48px;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .footer-logo-text {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.45rem;
+      color: var(--white);
+    }
+
+    .footer-desc { font-size: .88rem; line-height: 1.7; color: var(--muted); }
+
+    .footer-col-title {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: 1.05rem;
+      letter-spacing: .06em;
+      color: var(--muted);
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-links a { font-size: .88rem; color: var(--muted); transition: color .2s; }
+    .footer-links a:hover { color: var(--orange); }
+
+    .footer-contact-item { font-size: .88rem; color: var(--muted); margin-bottom: 10px; line-height: 1.55; }
+    .footer-contact-item strong { color: var(--orange); }
+
+    .footer-newsletter { display: flex; gap: 0; margin-bottom: 28px; }
+
+    .footer-email-input {
+      flex: 1;
+      padding: 11px 14px;
+      background: #1a2240;
+      border: 1px solid #2a3460;
+      border-right: none;
+      color: var(--white);
+      font-family: 'Barlow', sans-serif;
+      font-size: .85rem;
+      outline: none;
+    }
+    .footer-email-input::placeholder { color: var(--muted); }
+
+    .footer-signup-btn {
+      padding: 11px 18px;
+      background: transparent;
+      border: 1px solid #2a3460;
+      color: var(--white);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 700;
+      font-size: .82rem;
+      letter-spacing: .08em;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s;
+    }
+    .footer-signup-btn:hover { background: var(--orange); border-color: var(--orange); }
+
+    .world-map {
+      width: 100%;
+      height: 110px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400'%3E%3Cellipse cx='200' cy='200' rx='160' ry='120' fill='%23162040'/%3E%3Cellipse cx='440' cy='180' rx='200' ry='130' fill='%23162040'/%3E%3Cellipse cx='680' cy='220' rx='100' ry='90' fill='%23162040'/%3E%3Ccircle cx='310' cy='150' r='4' fill='%23e0511a'/%3E%3Ccircle cx='500' cy='170' r='4' fill='%23e0511a'/%3E%3Ccircle cx='620' cy='230' r='4' fill='%23e0511a'/%3E%3Ccircle cx='180' cy='220' r='4' fill='%23e0511a'/%3E%3C/svg%3E") center/contain no-repeat;
+      opacity: .7;
+    }
+
+    .footer-bar {
+      border-top: 1px solid #1a2240;
+      padding: 22px 5vw;
+      text-align: center;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .footer-bar a { color: var(--orange); }
+
+    /* ─── SCROLL TO TOP ─── */
+    .scroll-top {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      width: 48px;
+      height: 48px;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      transition: background .2s;
+    }
+    .scroll-top:hover { background: #c2420f; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      .topbar-left span:last-child { display: none; }
+      .nav-links { display: none; }
+      .post-nav { grid-template-columns: 1fr; }
+      .reply-form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══ TOP BAR ═══ -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.29h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.63a16 16 0 0 0 6 6l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.46 16z"/></svg>
+        +(123) 1234-567-8901
+      </span>
+      <span>
+        <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        info@domain.com
+      </span>
+      <span>Mon – Sat 8:00 – 17:30, Sunday – CLOSED</span>
+    </div>
+    <div class="topbar-socials">
+      <a href="#">✕</a>
+      <a href="#">f</a>
+      <a href="#">in</a>
+      <a href="#">⊙</a>
+    </div>
+  </div>
+
+  <!-- ═══ NAVBAR ═══ -->
+  <nav class="nav">
+    <a href="#" class="nav-logo">
+      <svg width="32" height="32" viewBox="0 0 34 34" fill="none">
+        <rect x="2"  y="4"  width="10" height="26" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none"/>
+        <rect x="14" y="10" width="8"  height="20" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none"/>
+        <rect x="24" y="16" width="8"  height="14" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none"/>
+        <rect x="4"  y="8"  width="2"  height="2"  fill="#e0511a"/>
+        <rect x="8"  y="8"  width="2"  height="2"  fill="#e0511a"/>
+        <rect x="4"  y="14" width="2"  height="2"  fill="#e0511a"/>
+        <rect x="8"  y="14" width="2"  height="2"  fill="#e0511a"/>
+      </svg>
+      <span class="nav-logo-text">Construction</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#">Projects</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="blog.html" class="active">Blog</a></li>
+      <li><a href="elements.html">Pages</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#" class="nav-cta">Contact Now</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ HERO ═══ -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Single Blog</h1>
+      <div class="hero-breadcrumb">
+        <a href="#">Home</a>&nbsp;/&nbsp;<span>Single Blog</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ MAIN LAYOUT ═══ -->
+  <div class="page-wrap">
+
+    <!-- ── Article ── -->
+    <main>
+      <!-- Featured Image -->
+      <div class="post-image-wrap">
+        <img class="post-img"
+             src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=900&q=80"
+             alt="Featured" />
+        <div class="post-date">
+          <span class="post-date-day">15</span>
+          <span class="post-date-month">Jan</span>
+        </div>
+      </div>
+
+      <!-- Title + Meta -->
+      <h1 class="post-title">
+        Second divided from form fish beast made every of seas all gathered us saying he our
+      </h1>
+
+      <div class="post-meta">
+        <div class="post-meta-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          Travel, Lifestyle
+        </div>
+        <span class="meta-divider">|</span>
+        <div class="post-meta-item">
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          03 Comments
+        </div>
+      </div>
+
+      <!-- Body Paragraph 1 -->
+      <p class="post-body">
+        MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on
+        boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower
+      </p>
+
+      <!-- Body Paragraph 2 -->
+      <p class="post-body">
+        MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on
+        boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to
+        actually sit through a self-imposed MCSE training, who has the willpower to actually
+      </p>
+
+      <!-- Blockquote -->
+      <div class="post-blockquote">
+        <p>
+          MCSE boot camps have its supporters and its detractors. Some people do not understand why you should
+          have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction of the
+          camp price. However, who has the willpower to actually sit through a self-imposed MCSE training.
+        </p>
+      </div>
+
+      <!-- Body Paragraph 3 -->
+      <p class="post-body">
+        MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on
+        boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower
+      </p>
+
+      <p class="post-body">
+        MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on
+        boot camp when you can get the MCSE study materials yourself at a fraction of the camp price. However, who has the willpower to
+        actually sit through a self-imposed MCSE training, who has the willpower to actually
+      </p>
+
+      <!-- Likes + Share -->
+      <div class="post-share">
+        <div class="post-likes">
+          <span class="like-heart">♥</span>
+          Lily and 4 people like this
+        </div>
+        <div class="social-icons">
+          <a href="#">f</a>
+          <a href="#">✕</a>
+          <a href="#">⊙</a>
+          <a href="#">Be</a>
+        </div>
+      </div>
+
+      <!-- Prev / Next Post -->
+      <div class="post-nav">
+        <a href="#" class="post-nav-item">
+          <img class="post-nav-thumb"
+               src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=140&q=80"
+               alt="Prev" />
+          <div>
+            <p class="post-nav-label">Prev Post</p>
+            <p class="post-nav-title">Space The Final Frontier</p>
+          </div>
+        </a>
+        <a href="#" class="post-nav-item next">
+          <img class="post-nav-thumb"
+               src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=140&q=80"
+               alt="Next" />
+          <div>
+            <p class="post-nav-label">Next Post</p>
+            <p class="post-nav-title">Telescopes 101</p>
+          </div>
+        </a>
+      </div>
+
+      <!-- Author Bio -->
+      <div class="author-bio">
+        <img class="author-avatar"
+             src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=180&q=80"
+             alt="Harvard milan" />
+        <div>
+          <p class="author-name">Harvard Milan</p>
+          <p class="author-desc">
+            Second divided from form fish beast made. Every of seas all gathered use saying you're, he our dominion twon Second divided from
+          </p>
+        </div>
+      </div>
+
+      <!-- Comments -->
+      <h3 class="comments-heading">05 Comments</h3>
+
+      <!-- Comment 1 -->
+      <div class="comment">
+        <img class="comment-avatar"
+             src="https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=120&q=80"
+             alt="Emilly Blunt" />
+        <div class="comment-body">
+          <p class="comment-text">
+            Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing
+            multiply sea night grass fourth day sea lesser
+          </p>
+          <div class="comment-meta">
+            <div>
+              <span class="comment-author">Emilly Blunt</span>
+              <span class="comment-date">December 4, 2017 at 3:12 pm</span>
+            </div>
+            <a href="#" class="comment-reply">Reply</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment 2 -->
+      <div class="comment">
+        <img class="comment-avatar"
+             src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=120&q=80"
+             alt="Emilly Blunt" />
+        <div class="comment-body">
+          <p class="comment-text">
+            Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing
+            multiply sea night grass fourth day sea lesser
+          </p>
+          <div class="comment-meta">
+            <div>
+              <span class="comment-author">Emilly Blunt</span>
+              <span class="comment-date">December 4, 2017 at 3:12 pm</span>
+            </div>
+            <a href="#" class="comment-reply">Reply</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment 3 -->
+      <div class="comment">
+        <img class="comment-avatar"
+             src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=120&q=80"
+             alt="Emilly Blunt" />
+        <div class="comment-body">
+          <p class="comment-text">
+            Multiply sea night grass fourth day sea lesser rule open subdue female fill which them Blessed, give fill lesser bearing
+            multiply sea night grass fourth day sea lesser
+          </p>
+          <div class="comment-meta">
+            <div>
+              <span class="comment-author">Emilly Blunt</span>
+              <span class="comment-date">December 4, 2017 at 3:12 pm</span>
+            </div>
+            <a href="#" class="comment-reply">Reply</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Leave a Reply -->
+      <h3 class="reply-heading">Leave a Reply</h3>
+
+      <div class="reply-form">
+        <textarea placeholder="Write Comment"></textarea>
+        <div class="reply-form-row">
+          <input type="text"  placeholder="Name" />
+          <input type="email" placeholder="Email" />
+        </div>
+        <input type="url" placeholder="Website" />
+        <button class="reply-send-btn">Send Message</button>
+      </div>
+    </main>
+
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar">
+
+      <!-- Search -->
+      <div>
+        <div class="search-wrap">
+          <input class="search-input" type="text" placeholder="Search Keyword" />
+          <button class="search-btn">🔍</button>
+        </div>
+        <button class="search-full-btn">Search</button>
+      </div>
+
+      <!-- Category -->
+      <div>
+        <h3 class="widget-title">Category</h3>
+        <ul class="cat-list">
+          <li><a href="#">Restaurant food (37)</a></li>
+          <li><a href="#">Travel news (10)</a></li>
+          <li><a href="#">Modern technology (03)</a></li>
+          <li><a href="#">Product (11)</a></li>
+          <li><a href="#">Inspiration (21)</a></li>
+          <li><a href="#">Health Care (21)</a></li>
+        </ul>
+      </div>
+
+      <!-- Recent Post -->
+      <div>
+        <h3 class="widget-title">Recent Post</h3>
+
+        <div class="recent-post">
+          <img class="recent-post-thumb" src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=140&q=80" alt="" />
+          <div>
+            <a href="#"><p class="recent-post-title">From life was you fish…</p></a>
+            <p class="recent-post-date">January 12, 2019</p>
+          </div>
+        </div>
+        <div class="recent-post">
+          <img class="recent-post-thumb" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=140&q=80" alt="" />
+          <div>
+            <a href="#"><p class="recent-post-title">The Amazing Hubble</p></a>
+            <p class="recent-post-date">02 Hours ago</p>
+          </div>
+        </div>
+        <div class="recent-post">
+          <img class="recent-post-thumb" src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=140&q=80" alt="" />
+          <div>
+            <a href="#"><p class="recent-post-title">Astronomy Or Astrology</p></a>
+            <p class="recent-post-date">03 Hours ago</p>
+          </div>
+        </div>
+        <div class="recent-post">
+          <img class="recent-post-thumb" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=140&q=80" alt="" />
+          <div>
+            <a href="#"><p class="recent-post-title">Asteroids telescope</p></a>
+            <p class="recent-post-date">01 Hours ago</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tag Clouds -->
+      <div>
+        <h3 class="widget-title">Tag Clouds</h3>
+        <div class="tags">
+          <span class="tag">project</span>
+          <span class="tag">love</span>
+          <span class="tag">technology</span>
+          <span class="tag">travel</span>
+          <span class="tag">restaurant</span>
+          <span class="tag">life style</span>
+          <span class="tag">design</span>
+          <span class="tag">illustration</span>
+        </div>
+      </div>
+
+      <!-- Instagram Feeds -->
+      <div>
+        <h3 class="widget-title">Instagram Feeds</h3>
+        <div class="insta-grid">
+          <img class="insta-thumb" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=200&q=70" alt="" />
+          <img class="insta-thumb" src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=200&q=70" alt="" />
+          <img class="insta-thumb" src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=200&q=70" alt="" />
+          <img class="insta-thumb" src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=200&q=70" alt="" />
+          <img class="insta-thumb" src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&q=70" alt="" />
+          <img class="insta-thumb" src="https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?w=200&q=70" alt="" />
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3 class="widget-title">Newsletter</h3>
+        <input class="subscribe-input" type="email" placeholder="Enter email" />
+        <button class="subscribe-btn">Subscribe</button>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- ═══ FOOTER ═══ -->
+  <div class="footer-stripe"></div>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">
+          <svg width="28" height="28" viewBox="0 0 34 34" fill="none">
+            <rect x="2"  y="4"  width="10" height="26" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none"/>
+            <rect x="14" y="10" width="8"  height="20" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none"/>
+            <rect x="24" y="16" width="8"  height="14" rx="1" stroke="#e0511a" stroke-width="1.8" fill="none"/>
+          </svg>
+          <span class="footer-logo-text">Construction</span>
+        </div>
+        <p class="footer-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Quick Links</p>
+        <ul class="footer-links">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Projects</a></li>
+          <li><a href="#">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Contact</p>
+        <p class="footer-contact-item">198 West 21th Street, Suite 721 New York, NY 10010</p>
+        <p class="footer-contact-item"><strong>Phone:</strong> +95 (0) 123 456 789</p>
+        <p class="footer-contact-item"><strong>Cell:</strong>  +95 (0) 123 456 789</p>
+      </div>
+
+      <div>
+        <div class="footer-newsletter">
+          <input class="footer-email-input" type="email" placeholder="Email Address" />
+          <button class="footer-signup-btn">Sign Up</button>
+        </div>
+        <div class="world-map"></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="footer-bar">
+    Copyright &copy;2026 All rights reserved | This template is made with ❤ by
+    <a href="#">Colorlib</a>
+  </div>
+
+  <button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+</body>
+</html>

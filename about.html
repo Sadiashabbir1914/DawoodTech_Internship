@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Construction Company Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://kit.fontawesome.com/0b77386848.js" crossorigin="anonymous"></script>
+
+    <style>
+         /* ── HERO ── */
+    .hero {
+      background: linear-gradient(to right, rgba(27,42,74,.88) 40%, rgba(27,42,74,.5) 100%),
+                  url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1400&q=80') center/cover no-repeat;
+      min-height: 340px;
+      display: flex; align-items: center;
+      padding: 60px 24px;
+    }
+    .hero-inner { max-width:1200px; margin:0 auto; }
+    .hero h1 {
+      font-family:'Rajdhani',sans-serif; font-size:clamp(48px,7vw,80px);
+      font-weight:700; color:rgba(255,255,255,.25); letter-spacing:4px;
+      text-transform:uppercase; line-height:1;
+    }
+    .breadcrumb {
+      display:flex; align-items:center; gap:10px; margin-top:14px;
+    }
+    .breadcrumb-line { width:40px; height:2px; background:var(--orange); }
+    .breadcrumb span {
+      font-size:13px; font-weight:700; color:var(--orange);
+      letter-spacing:2px; text-transform:uppercase;
+    }
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <nav class="top-header">
+            <ul class="contact-items">
+                <li>+(123) 1234-567-8901</li>
+                <li>info@domain.com</li>
+                <li>Mon - Sat 8:00 - 17:30, Sunday - CLOSED</li>
+            </ul>
+
+            <ul class="contact-items social-links">
+                <li><a href="#" class="lift"><i class="fa-brands fa-x-twitter"></i></a></li>
+                <li><a href="#" class="lift"><i class="fa-brands fa-facebook"></i></a></li>
+                <li><a href="#" class="lift"><i class="fa-brands fa-linkedin"></i></a></li>
+                <li><a href="#" class="lift"><i class="fa-brands fa-instagram"></i></a></li>
+            </ul>
+        </nav>
+        <hr>
+
+        <nav class="bottom-header">
+            <img src="images/logo.webp" alt="">
+
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="projects.html">Projects</a></li>
+                <li>
+                    <a href="services.html">Services</a>
+                </li>
+                <li>
+                    <a href="#" class="active">Blog</a>
+                    <div class="nav-dropdown">
+                        <a href="blog.html">Blog</a>
+                        <a href="blog_details.html">Blog Details</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" class="active">Pages</a>
+                    <div class="nav-dropdown">
+                        <a href="elements.html">Element</a>
+                        <a href="projects.html">Projects Details</a>
+                        <a href="services.html">Services Details</a>
+                    </div>
+                </li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+
+            <button>CONTACT NOW</button>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <h1>ABOUT US</h1>
+            <div class="breadcrumb">
+                <div class="breadcrumb-line"></div>
+                <span>Home / PRODUCT</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="about">
+        <article class="who-we-r reveal-right">
+            <h1>WHO WE ARE</h1>
+            <h4>Mollit anim laborum duis au dolor in voluptcate velit esscillum dolore eu lore
+                dsu quality mollit anim laborumuis au dolor in voluptate velit cillu.</h4>
+            <p>Mollit anim laborum.Dvcuis aute iruxvfg dhjkolohr in re voluptate velit esscillumlore eu quife nrulla
+                parihatur. Excghcepteur sfwsignjnt occa cupidatat non aute iruxvfg dhjinulpadeserunt mollitemnth
+                incididbnt
+                ut;o5tu layjobore mofllit anim.</p>
+            <button class="rm-btn">READ MORE</button>
+        </article>
+
+        <article class="about-img reveal-left">
+            <img src="images/safe_in.webp" alt="about-img">
+        </article>
+    </section>
+
+    <!-- ═══ TESTIMONIAL ═══ -->
+    <section class="testimonial-section">
+        <p class="testimonial-label">Testimonial</p>
+
+        <div class="testimonial-inner">
+            <span class="testimonial-quote-icon">&#8220;&#8220;</span>
+
+            <p class="testimonial-text">
+                Mollit anim laborum. Dvcuis aute iruxvfg dhjkolohr in re voluptate velit esscillumlore eu quife nrulla
+                parihatur.
+                Excghcepteur sfwsignjnt occa cupidatat non aute iruxvfg dhjinulpadeserunt mollitemnth incididbn ut;o5tu
+                layjobore mofllit anim.
+                Mollit anim laborum. Dvcuis aute iruxvfg dhjkolohr in re voluptate velit esscillumlore eu quife nrulla
+                parihatur.
+                Excghcepteur sfwsignjn.
+            </p>
+
+            <div class="testimonial-author">
+                <span class="testimonial-author__name">Jessya Inn</span>
+                <span class="testimonial-author__title">Co Founder</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-heading">Our Team</h2>
+
+        <div class="team-grid">
+
+            <!-- Card 1 -->
+            <div class="team-card">
+                <img class="team-card__photo" src="images/team1.webp" alt="Marcus Rivera" />
+                <div class="team-card__meta">
+                    <p class="team-card__role">Site Engineer</p>
+                    <h3 class="team-card__name">Marcus Rivera</h3>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="team-card">
+                <img class="team-card__photo" src="images/team2.webp" alt="Ethan Welch" />
+                <div class="team-card__meta">
+                    <p class="team-card__role">Project Manager</p>
+                    <h3 class="team-card__name">Ethan Welch</h3>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="team-card">
+                <img class="team-card__photo" src="images/team3.webp" alt="Daniel Brooks" />
+                <div class="team-card__meta">
+                    <p class="team-card__role">Safety Officer</p>
+                    <h3 class="team-card__name">Daniel Brooks</h3>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="footer-stripe"></div>
+
+    <footer class="footer">
+        <div class="footer-grid">
+
+            <!-- Col 1: Logo + desc -->
+            <div>
+                <div class="footer-logo">
+                    <img src="images/logo.webp" alt="">
+                </div>
+                <p class="footer-desc">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore.
+                </p>
+            </div>
+
+            <!-- Col 2: Quick Links -->
+            <div>
+                <p class="footer-col-title">Quick Links</p>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Projects</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                </ul>
+            </div>
+
+            <!-- Col 3: Contact -->
+            <div>
+                <p class="footer-col-title">Contact</p>
+                <p class="footer-contact-item">198 West 21th Street, Suite 721 New York, NY 10010</p>
+                <p class="footer-contact-item"><strong>Phone:</strong> +95 (0) 123 456 789</p>
+                <p class="footer-contact-item"><strong>Cell:</strong> +95 (0) 123 456 789</p>
+            </div>
+
+            <!-- Col 4: Newsletter + Map -->
+            <div>
+                <div class="footer-newsletter">
+                    <input class="footer-email-input" type="email" placeholder="Email Address" />
+                    <button class="footer-signup-btn">Sign Up</button>
+                </div>
+                <div class="world-map">
+                    <img src="images/map-footer.webp" alt="">
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <div class="footer-bar">
+        Copyright &copy;2026 All rights reserved | This template is made with ❤ by
+        <a href="#" target="_blank">Colorlib</a>
+    </div>
+
+</body>
+
+</html>
