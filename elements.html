@@ -299,6 +299,60 @@
       nav { display:none; }
       .gallery-grid { grid-template-columns:1fr 1fr; }
     }
+  
+    /* ── Hamburger ── */
+    .hamburger {
+      all: unset;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 6px;
+      cursor: pointer;
+      padding: 12px;
+      margin-left: auto;
+      width: 44px;
+      height: 44px;
+      box-sizing: border-box;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2.5px;
+      background: #fff; border-radius: 2px;
+      transition: transform .3s, opacity .3s;
+    }
+    .hamburger.is-open span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+    .hamburger.is-open span:nth-child(2) { opacity: 0; }
+    .hamburger.is-open span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg); }
+    nav.nav-open {
+      display: flex !important;
+      flex-direction: column;
+      position: absolute;
+      top: 72px; left: 0; right: 0;
+      background: var(--navy);
+      z-index: 2000;
+      padding: 8px 0 16px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.4);
+      border-top: 2px solid var(--orange);
+      animation: slideDown .2s ease;
+    }
+    @keyframes slideDown {
+      from { opacity:0; transform:translateY(-6px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    nav.nav-open a {
+      padding: 15px 28px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      display: block;
+      border-radius: 0;
+    }
+    @media (max-width: 900px) {
+      .topbar      { display: none; }
+      .hamburger   { display: flex; }
+      nav          { display: none; margin-left: 0; }
+      .btn-contact { display: none; }
+      header       { position: relative; }
+      .header-inner { flex-wrap: nowrap; }
+    }
+
   </style>
 </head>
 <body>
@@ -340,6 +394,8 @@
     </nav>
     <a href="#" class="btn-contact">Contact Now</a>
   </div>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
 </header>
 
 <!-- HERO -->
@@ -706,5 +762,24 @@
   &copy; 2026 Construction Co. All rights reserved.
 </footer>
 
+  <script>
+    (function () {
+      var btn = document.getElementById("hamburger");
+      var nav = document.querySelector("header nav");
+      if (!btn || !nav) return;
+      btn.addEventListener("click", function () {
+        var open = nav.classList.toggle("nav-open");
+        btn.classList.toggle("is-open", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      document.addEventListener("click", function (e) {
+        if (!btn.contains(e.target) && !nav.contains(e.target)) {
+          nav.classList.remove("nav-open");
+          btn.classList.remove("is-open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+      });
+    })();
+  </script>
 </body>
 </html>

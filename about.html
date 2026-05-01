@@ -81,7 +81,10 @@
                 <li><a href="#">Contact</a></li>
             </ul>
 
-            <button>CONTACT NOW</button>
+            <button class="contact-cta">CONTACT NOW</button>
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
         </nav>
     </header>
 
@@ -225,6 +228,26 @@
         <a href="#" target="_blank">Colorlib</a>
     </div>
 
+  <script>
+    (function () {
+      var btn = document.getElementById("hamburger");
+      var nav = document.querySelector(".nav-links");
+      if (!btn || !nav) return;
+      btn.addEventListener("click", function () {
+        var open = nav.classList.toggle("nav-open");
+        btn.classList.toggle("is-open", open);
+        btn.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+      // Close on outside click
+      document.addEventListener("click", function (e) {
+        if (!btn.contains(e.target) && !nav.contains(e.target)) {
+          nav.classList.remove("nav-open");
+          btn.classList.remove("is-open");
+          btn.setAttribute("aria-expanded", "false");
+        }
+      });
+    })();
+  </script>
 </body>
 
 </html>

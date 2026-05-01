@@ -1304,3 +1304,257 @@ button:hover {
 .footer-bar a {
     color: #e0511a;
 }
+/* ============================================================
+   RESPONSIVE OVERHAUL — Professional Mobile-First
+   Breakpoints: 1200px | 992px | 768px | 480px
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   1. SCOPE THE GLOBAL button STYLE TO THE CONTACT CTA ONLY
+   (so hamburger is not polluted by it)
+   ---------------------------------------------------------- */
+.bottom-header > button.contact-cta {
+    margin: auto 30px auto 20px;
+    height: 46px;
+    padding: 0 22px;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ----------------------------------------------------------
+   2. HAMBURGER BUTTON — full reset from global button style
+   ---------------------------------------------------------- */
+.hamburger {
+    all: unset;                     /* wipe global button rules */
+    display: none;                  /* hidden on desktop        */
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 12px;
+    margin-left: auto;
+    margin-right: 16px;
+    width: 44px;
+    height: 44px;
+    box-sizing: border-box;
+    background: transparent;
+    border: none;
+    outline: none;
+    flex-shrink: 0;
+}
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2.5px;
+    background: #ffffff;
+    border-radius: 2px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    pointer-events: none;
+}
+.hamburger.is-open span:nth-child(1) { transform: translateY(8.5px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2) { opacity: 0;                                  }
+.hamburger.is-open span:nth-child(3) { transform: translateY(-8.5px) rotate(-45deg);}
+
+/* ----------------------------------------------------------
+   3. BOTTOM HEADER — make it a flex context for the drawer
+   ---------------------------------------------------------- */
+.bottom-header {
+    position: relative;   /* needed so the drawer sits below */
+    align-items: center;
+}
+
+/* ----------------------------------------------------------
+   4. MOBILE NAV DRAWER (activated by JS)
+   ---------------------------------------------------------- */
+.nav-links.nav-open {
+    display: flex !important;
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgb(0, 46, 70);
+    z-index: 2000;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+    padding: 8px 0 16px;
+    border-top: 2px solid var(--orange);
+    animation: slideDown 0.22s ease;
+}
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0);    }
+}
+.nav-links.nav-open > li > a {
+    line-height: 1;
+    padding: 15px 28px;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    display: block;
+}
+.nav-links.nav-open .nav-dropdown {
+    position: static;
+    display: flex !important;
+    flex-direction: column;
+    background: rgba(0,0,0,0.25);
+    border-top: none;
+    box-shadow: none;
+    padding: 4px 0;
+}
+.nav-links.nav-open .nav-dropdown a {
+    padding: 11px 48px;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.85rem;
+}
+.nav-links.nav-open .nav-dropdown a:hover { color: var(--orange); }
+
+/* ----------------------------------------------------------
+   5. BREAKPOINTS
+   ---------------------------------------------------------- */
+
+/* ── ≤ 1200px : tighten desktop spacing ── */
+@media (max-width: 1200px) {
+    .contact-items          { margin-left: 30px; gap: 14px; }
+    .social-links           { margin-left: auto; margin-right: 20px; }
+    .bottom-header img      { margin: 20px 0 20px 30px; }
+    .bottom-header > button { margin-left: 20px; }
+
+    .services h2            { margin: 80px 0 40px 40px; }
+    .services-container     { margin-left: 10px; }
+    .about-img img          { width: 100%; max-width: 580px; }
+    .who-we-r               { width: 360px; }
+    .section-heading        { margin: 60px 0 36px 40px; }
+    .stats                  { width: auto; margin: 0 20px 20px; }
+    .news-grid              { width: 92%; margin-left: 40px; }
+    .team-grid              { margin-right: 0; }
+}
+
+/* ── ≤ 992px : tablet landscape ── */
+@media (max-width: 992px) {
+    /* Header */
+    .hamburger              { display: flex; }
+    .nav-links              { display: none; }
+    .bottom-header > button.contact-cta { display: none; }
+    .bottom-header          { flex-wrap: nowrap; }
+    .bottom-header img      { margin: 14px 0 14px 20px; height: 44px; width: auto; }
+
+    /* Services */
+    .services h2            { margin: 60px 0 30px 28px; }
+    .services-container     { flex-direction: column; align-items: center; margin-left: 0; }
+    .services-box           { width: min(90%, 460px); }
+    .line                   { width: 100%; }
+    .read-more              { margin-right: 0; padding: 0 24px; justify-content: flex-start; gap: 20px; }
+
+    /* About */
+    .about                  { flex-direction: column-reverse; align-items: center; margin-top: 70px; padding: 0 24px; }
+    .who-we-r               { width: 100%; max-width: 600px; }
+    .about-img img          { width: 100%; max-width: 640px; }
+    .rm-btn                 { margin-right: 0 !important; }
+
+    /* Projects */
+    .projects               { flex-direction: column; align-items: flex-start; gap: 16px; padding: 0 28px; }
+    .project                { margin-top: 60px; }
+    .project-links          { margin-top: 0; flex-wrap: wrap; gap: 18px; }
+    .project-container      { padding: 0 28px; gap: 20px; }
+    .card                   { width: calc(50% - 10px); max-width: 380px; }
+
+    /* Stats */
+    .stats                  { width: auto; margin: 0; padding: 40px 5%; gap: 32px; height: auto; }
+
+    /* Team */
+    .section-heading        { margin: 60px 0 28px 28px; }
+    .team-grid              { grid-template-columns: repeat(2, 1fr); margin: 30px 28px 0; gap: 24px; }
+    .team-card              { margin: 0; }
+
+    /* Testimonial */
+    .testimonial-section    { padding: 70px 28px; margin: 60px 0; }
+
+    /* News */
+    .news-grid              { flex-wrap: wrap; width: 92%; margin: 40px auto; }
+    .news-card              { flex: 1 1 300px; }
+
+    /* Footer */
+    .footer                 { height: auto; padding: 48px 28px 0; }
+    .footer-grid            { grid-template-columns: 1fr 1fr; gap: 36px; }
+    .footer-email-input     { margin: 0; }
+}
+
+/* ── ≤ 768px : tablet portrait / large phone ── */
+@media (max-width: 768px) {
+    /* Hide top contact bar */
+    .top-header             { display: none; }
+
+    /* Project cards full row */
+    .card                   { width: 100%; max-width: 480px; margin: 0 auto; }
+    .project-container      { flex-direction: column; align-items: center; padding: 0 20px; }
+
+    /* Stats */
+    .stats                  { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+
+    /* Team single col for narrow tablets */
+    .team-grid              { grid-template-columns: repeat(2, 1fr); }
+
+    /* News */
+    .news-grid              { flex-direction: column; align-items: center; }
+    .news-card              { width: 100%; max-width: 520px; }
+
+    /* Footer */
+    .footer-newsletter      { flex-wrap: nowrap; }
+}
+
+/* ── ≤ 480px : mobile phones ── */
+@media (max-width: 480px) {
+    /* Header */
+    .bottom-header img      { height: 36px; margin-left: 14px; }
+    .hamburger              { margin-right: 10px; }
+
+    /* Hero */
+    .panel                  { padding: 0 20px; }
+    .title-expert           { font-size: clamp(52px, 15vw, 80px); }
+    .title-construction,
+    .title-construction-fill{ font-size: clamp(36px, 11vw, 65px); }
+
+    /* Services */
+    .services h2            { margin: 50px 0 20px 20px; font-size: 26px; }
+    .services-box           { width: 95%; }
+    .services-box h3        { margin: 20px 16px; }
+
+    /* About */
+    .about                  { margin-top: 50px; padding: 0 16px; }
+    .who-we-r h1            { font-size: clamp(34px, 10vw, 52px); }
+
+    /* Projects */
+    .projects               { padding: 0 16px; }
+    .project                { margin-top: 50px; font-size: 26px; }
+    .project-links          { gap: 12px; }
+    .project-container      { padding: 0 16px; }
+
+    /* Stats — vertical stack */
+    .stats                  { flex-direction: column; align-items: center; text-align: center; gap: 28px; padding: 40px 20px; }
+
+    /* Team — single column */
+    .section-heading        { margin: 40px 0 20px 16px; font-size: 2rem; }
+    .team-grid              { grid-template-columns: 1fr; margin: 20px 16px 0; gap: 30px; }
+    .team-card__photo       { aspect-ratio: 4 / 3; }
+
+    /* CTA */
+    .cta                    { padding: 60px 20px 80px; min-height: auto; }
+    .cta__heading           { font-size: clamp(28px, 9vw, 46px); }
+    .cta__ghost             { font-size: clamp(60px, 15vw, 100px); }
+
+    /* Testimonial */
+    .testimonial-section    { padding: 50px 16px; margin: 40px 0; }
+    .testimonial-label      { font-size: 1.6rem; }
+
+    /* News */
+    .news-grid              { margin: 24px auto; }
+    .section-heading        { margin-left: 16px; }
+
+    /* Footer */
+    .footer                 { padding: 40px 16px 0; }
+    .footer-grid            { grid-template-columns: 1fr; gap: 28px; }
+    .footer-email-input     { margin: 0; }
+    .footer-newsletter      { gap: 0; }
+
+    /* Scroll top */
+    .scroll-top             { bottom: 16px; right: 16px; width: 40px; height: 40px; font-size: 16px; }
+}
